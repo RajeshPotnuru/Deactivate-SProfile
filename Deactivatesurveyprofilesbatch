@@ -1,0 +1,41 @@
+/* Deactivatesurveyprofilesbatch  
+ *To deactivate expired survey profiles auytomatically
+ *Created by -Rajesh Potnuru-21/Jan/2019
+*/
+global class Deactivatesurveyprofilesbatch implements Schedulable,Database.Batchable<sObject>{
+    
+     List<ebMobile__SurveyProfileAssign__c> casToUpdate = new List<ebMobile__SurveyProfileAssign__c>(); 
+    String query = 'SELECT Id,ebMobile__IsActive__c FROM ebMobile__SurveyProfileAssign__c where ebMobile__EndDate__c < TODAY AND ebMobile__IsActive__c =true';
+
+// Start Method
+
+   global Database.QueryLocator start(Database.BatchableContext BC){
+        return Database.getQueryLocator(query);
+       
+    }
+    
+// Execute Logic
+    global void execute(Database.BatchableContext BC, List<ebMobile__SurveyProfileAssign__c> scope){
+    // Logic to be Executed batch wise 
+            List<ebMobile__SurveyProfileAssign__c> newrec= new list<ebMobile__SurveyProfileAssign__c>();
+            for(ebMobile__SurveyProfileAssign__c S : scope){
+           
+            {
+                S.ebMobile__IsActive__c = FALSE; 
+             }
+            newrec.add(S);
+            
+        update newrec;  
+        }
+    }
+       
+    // Finish Method
+
+    global void finish(Database.BatchableContext BC){     
+    }  
+    
+  global void execute(SchedulableContext scon) {
+
+      Database.executeBatch(new Deactivatesurveyprofilesbatch(),100);        
+    }
+}
