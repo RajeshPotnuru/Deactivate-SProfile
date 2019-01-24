@@ -1,0 +1,10 @@
+global class ScheduleDeactivatesurveyprofilesbatch implements Schedulable {
+
+    global void execute(SchedulableContext sc) {
+        
+        Deactivatesurveyprofilesbatch bn= new Deactivatesurveyprofilesbatch();
+        Database.executeBatch(bn);
+       
+        
+    }
+}
