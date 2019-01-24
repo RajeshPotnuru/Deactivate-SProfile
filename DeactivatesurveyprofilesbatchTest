@@ -1,0 +1,23 @@
+//Test class Deactivatesurveyprofilesbatch
+
+@isTest
+    public class DeactivatesurveyprofilesbatchTest {
+    static testMethod void method() {
+   
+        Database.QueryLocator QL;
+        Database.BatchableContext BC;
+        Date td =system.Today();
+        
+        ebMobile__SurveyProfileAssign__c s = new ebMobile__SurveyProfileAssign__c();
+        s.ebMobile__IsActive__c = True;
+        s.ebMobile__EndDate__c = Date.newInstance (2019, 01, 21);
+
+        insert s;
+        
+        Test.StartTest();
+        Deactivatesurveyprofilesbatch objbatch = new Deactivatesurveyprofilesbatch();
+        //ID batchprocessid = Database.executeBatch(objbatch);
+        database.executebatch(objbatch);
+        Test.StopTest();
+    }
+}
