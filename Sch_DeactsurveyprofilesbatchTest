@@ -1,0 +1,16 @@
+@isTest
+private class Sch_DeactsurveyprofilesbatchTest
+{
+
+    static testmethod void schedulerTest() 
+    {
+        String CRON_EXP = '0 0 0 15 3 ? *';
+        
+       
+        
+        Test.startTest();
+
+             System.schedule('ScheduleApexClassTest',  CRON_EXP, new ScheduleDeactivatesurveyprofilesbatch());
+            
+
+        Test.stopTest();
